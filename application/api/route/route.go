@@ -3,16 +3,14 @@ package route
 import (
 	"time"
 
-	"github.com/cerbos/cerbos-sdk-go/cerbos"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
 type RouteOptions struct {
-	Timeout      time.Duration
-	DB           *gorm.DB
-	Engine       *fiber.App
-	CerbosClient *cerbos.GRPCClient
+	Timeout time.Duration
+	DB      *gorm.DB
+	Engine  *fiber.App
 }
 
 func Setup(r *RouteOptions) {

@@ -10,7 +10,6 @@ services:
       - app_network
     depends_on:
       - db
-      - cerbos
 
   db:
     image: postgres
@@ -31,18 +30,6 @@ services:
       - app_network
     volumes:
       - database_postgres:/var/lib/postgresql/data
-
-  cerbos:
-    container_name: cerbos
-    image: ghcr.io/cerbos/cerbos:0.34.0
-    ports:
-      - "3592:3592"
-    env_file:
-      - .env
-    volumes:
-      - ./policies:/policies
-    networks:
-      - app_network
 
 volumes:
   database_postgres:

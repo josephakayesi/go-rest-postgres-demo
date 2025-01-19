@@ -16,7 +16,6 @@ func NewOrdersRouter(r *RouteOptions, group fiber.Router) {
 	or := repository.NewOrderRespository(r.DB)
 	oc := &controller.OrderController{
 		OrderUsecase: usecase.NewOrderUsecase(or, r.Timeout),
-		CerbosClient: r.CerbosClient,
 		Logger:       *slog.New(slog.NewJSONHandler(os.Stdout, nil)).With("component", "orders"),
 	}
 

@@ -17,7 +17,6 @@ import (
 	route "github.com/josephakayesi/go-cerbos-abac/application/api/route"
 	"github.com/josephakayesi/go-cerbos-abac/application/validation"
 	entity "github.com/josephakayesi/go-cerbos-abac/domain/core/entity"
-	cerbos "github.com/josephakayesi/go-cerbos-abac/infra/cerbos"
 	"github.com/josephakayesi/go-cerbos-abac/infra/config"
 	database "github.com/josephakayesi/go-cerbos-abac/infra/database/postgres"
 
@@ -55,12 +54,6 @@ func main() {
 		panic(err)
 	}
 
-	cb, err := cerbos.NewCerbos(c)
-	if err != nil {
-		log.Error("unable to establish cerbos connection", "error", err)
-		panic(err)
-	}
-
 	app.Use(requestid.New())
 
 	app.Use(logger.New(logger.Config{
@@ -71,10 +64,9 @@ func main() {
 	timeout := time.Duration(time.Second*1) * time.Second
 
 	r := &route.RouteOptions{
-		Timeout:      timeout,
-		DB:           pg,
-		Engine:       app,
-		CerbosClient: cb,
+		Timeout: timeout,
+		DB:      pg,
+		Engine:  app,
 	}
 
 	route.Setup(r)

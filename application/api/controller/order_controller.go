@@ -125,18 +125,7 @@ func (oc *OrderController) UpdateOrder(c *fiber.Ctx) error {
 		return c.Status(400).JSON(internal.NewErrorResponse("order not found"))
 	}
 
-	resource := cerbos.NewResource("order", existingOrder.ID).
-		WithAttr("user_id", existingOrder.UserID)
-
-	principal := cerbos.NewPrincipal(user.ID, user.Role.String()).WithAttr("role", user.Role.String())
-
-	isAllowed, err := oc.CerbosClient.IsAllowed(ctx, principal, resource, "update")
-	if err != nil {
-		oc.Logger.Error("unable to check cerbos policy", "log_id", logId, "err", err)
-		return c.Status(400).JSON(internal.NewErrorResponse("unable to update order at this time"))
-	}
-
-	if !isAllowed {
+	if user.ID != existingOrder.UserID {
 		oc.Logger.Info("user not authorized to update order", "log_id", logId)
 		return c.Status(400).JSON(internal.NewErrorResponse("user not authorized to update order"))
 	}
