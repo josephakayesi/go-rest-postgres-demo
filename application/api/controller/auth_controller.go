@@ -100,7 +100,7 @@ func (tc *AuthController) Login(c *fiber.Ctx) error {
 
 	key := internal.ContextWithValueKey("BrowserFingerprint")
 
-	ctx = context.WithValue(ctx, key, bf)
+	_ = context.WithValue(ctx, key, bf)
 
 	tc.Logger.Info("user with email or username logged in successfully", slog.String("log_id", logId), slog.String("username_or_email", loginUserDto.UsernameOrEmail))
 
@@ -152,7 +152,7 @@ func (tc *AuthController) RefreshToken(c *fiber.Ctx) error {
 
 	key := internal.ContextWithValueKey("BrowserFingerprint")
 
-	ctx = context.WithValue(ctx, key, bf)
+	_ = context.WithValue(ctx, key, bf)
 
 	token := dto.CreateGetAccessTokenDTO(accessToken)
 
