@@ -1,4 +1,4 @@
-name: build auth
+name: build go-rest-postgres-demo
 
 on:
   push:
