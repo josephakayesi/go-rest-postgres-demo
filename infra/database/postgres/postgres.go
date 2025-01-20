@@ -52,7 +52,7 @@ func GeneratePostgresURI(env *config.Config) string {
 		sslmode  = env.PG_SSLMODE
 	)
 	if env.ENV == config.Development {
-		dbUrl = fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=%s", user, password, host, port, dbname, sslmode)
+		dbUrl = fmt.Sprintf("postgresql://%s:%s@%s:%d/%s?sslmode=%s", user, password, host, port, dbname, sslmode)
 	}
 
 	log.Info("postgres uri generated successfully", "url", dbUrl)

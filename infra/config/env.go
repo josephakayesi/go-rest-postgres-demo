@@ -48,7 +48,7 @@ const (
 
 type Config struct {
 	PG_HOST                   string
-	PG_PORT                   string
+	PG_PORT                   int
 	PG_NAME                   string
 	PG_USER                   string
 	PG_PASS                   string
@@ -124,7 +124,7 @@ func LoadConfig() *Config {
 
 	return &Config{
 		PG_HOST:                   Get("PG_HOST", "localhost"),
-		PG_PORT:                   Get("PG_PORT", "5432"),
+		PG_PORT:                   GetInt("PG_PORT", 5432),
 		PG_NAME:                   Get("PG_NAME", "kale"),
 		PG_USER:                   Get("PG_USER", "postgres"),
 		PG_PASS:                   Get("PG_PASS", "postgres"),
